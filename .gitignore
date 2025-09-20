@@ -1,1 +1,6 @@
+# Xcode
+build/
+DerivedData/
+*.xcworkspace
+Pods/
 
