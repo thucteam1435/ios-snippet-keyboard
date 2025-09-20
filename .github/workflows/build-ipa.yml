@@ -1,1 +1,44 @@
+name: Build IPA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build iOS IPA
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    # Cài đặt certificate
+    - name: Decode Certificate
+      run: |
+        echo "${{ secrets.CERTIFICATE_P12 }}" | base64 --decode > certificate.p12
+        security import certificate.p12 -k ~/Library/Keychains/login.keychain-db -P "${{ secrets.CERT_PASSWORD }}" -T /usr/bin/codesign
+
+    # Cài đặt provisioning profile
+    - name: Decode Provisioning Profile
+      run: |
+        echo "${{ secrets.PROVISIONING_PROFILE }}" | base64 --decode > profile.mobileprovision
+        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+        cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
+    # Build IPA
+    - name: Build IPA
+      run: |
+        xcodebuild -workspace iOSKeyboardProject.xcworkspace \
+                   -scheme iOSKeyboardProject \
+                   -configuration Release \
+                   -allowProvisioningUpdates \
+                   -archivePath $PWD/build/iOSKeyboardProject.xcarchive archive
+        xcodebuild -exportArchive \
+                   -archivePath $PWD/build/iOSKeyboardProject.xcarchive \
+                   -exportOptionsPlist ExportOptions.plist \
+                   -exportPath $PWD/build
+
+    - name: List IPA
+      run: ls -la build
 
