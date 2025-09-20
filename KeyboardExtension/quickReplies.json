@@ -1,1 +1,21 @@
+{
+    "12pin": {
+        "title": "iPhone 12 - Pin",
+        "options": [
+            { "type": "Pin cơ bản", "price": "¥6,000", "warranty": "Không BH" },
+            { "type": "Pin cơ bản", "price": "¥6,500", "warranty": "Không BH" },
+            { "type": "Pin cơ bản", "price": "¥8,500", "warranty": "Không BH" },
+            { "type": "Pin zin", "price": "¥9,000", "warranty": "Không BH" }
+        ]
+    },
+    "12prmman": {
+        "title": "iPhone 12 prm",
+        "options": [
+            { "type": "Màn linh kiện LCD", "price": "¥12,000", "warranty": "1 tháng" },
+            { "type": "Màn linh kiện OLED", "price": "¥18,000", "warranty": "3 tháng" },
+            { "type": "Màn zin ép kính", "price": "¥25,000", "warranty": "3 tháng" },
+            { "type": "Màn zin bóc máy", "price": "¥28,000", "warranty": "3 tháng" }
+        ]
+    }
+}
 
